@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools" package="io.github.luteoos.quicktype">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+            android:name=".QTypeStartup"
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/name_app"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme" tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".views.SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+                android:name=".views.activity.MainScreenActivity"
+                android:theme="@style/LandingTheme"
+                android:windowSoftInputMode="stateHidden|adjustPan" />
+
+        <activity
+                android:name=".views.activity.GameActivity"
+                android:theme="@style/LandingTheme"
+                android:windowSoftInputMode="stateAlwaysVisible|adjustPan" />
+
+    </application>
+
+</manifest>
