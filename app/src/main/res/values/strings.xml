@@ -7,7 +7,7 @@
     <string name="title_about">About</string>
     <string name="title_help">Mayday Mayday!</string>
     <string name="ok">OK</string>
-
+    <string name="unkn_dude">NPC-Dude</string>
     <!-- Copy paste from GenTree-->
     <string name="exit_button">Exit</string>
     <string name="login_button">Log In</string>

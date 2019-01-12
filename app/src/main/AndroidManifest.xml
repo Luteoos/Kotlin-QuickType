@@ -30,6 +30,11 @@
                 android:theme="@style/LandingTheme"
                 android:windowSoftInputMode="stateAlwaysVisible|adjustPan" />
 
+        <activity
+                android:name=".views.activity.ScoreActivity"
+                android:theme="@style/LandingTheme"
+                android:windowSoftInputMode="stateHidden|adjustPan" />
+
     </application>
 
 </manifest>

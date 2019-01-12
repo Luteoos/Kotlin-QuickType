@@ -1,10 +1,16 @@
 package io.github.luteoos.quicktype.views.activity
 
+import android.animation.ObjectAnimator
 import android.arch.lifecycle.Observer
+import android.content.Context
+import android.content.Intent
+import android.graphics.drawable.ColorDrawable
+import android.hardware.input.InputManager
 import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.inputmethod.InputMethodManager
 import com.luteoos.kotlin.mvvmbaselib.BaseActivityMVVM
 import es.dmoral.toasty.Toasty
 import io.github.luteoos.quicktype.R
@@ -20,6 +26,9 @@ class GameActivity: BaseActivityMVVM<GamePresenter>() {
 
     private var words: Array<String> = Array(0) {""}
     private var steps: Int = 0
+    private var time = 59
+    private val timeHandler = Handler()
+    private var isGameEnd = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,18 +36,25 @@ class GameActivity: BaseActivityMVVM<GamePresenter>() {
         this.connectToVMMessage()
         setBindings()
         viewModel.getWordsFromApi()
+        tvTimer.text = time.toString()
+        Session.reset()
+    }
+
+    override fun finish() {
+        isGameEnd = true
+        timeHandler.removeCallbacks(null)
+        super.finish()
     }
 
     override fun onBackPressed() {
-        //todo rework to make sure keyboard is always on display, temporary solution
+        super.onBackPressed()
         finish()
     }
-
     override fun onVMMessage(msg: String?) {
         when(msg){
-            viewModel.LOG_IN_FAILED -> {
+            viewModel.GET_WORDS_FAILED -> {
                 Toasty.error(ctx,R.string.api_error).show()
-                onBackPressed()
+                finish()
             }
         }
     }
@@ -62,7 +78,7 @@ class GameActivity: BaseActivityMVVM<GamePresenter>() {
                 words = array
                 beginGame()
             }else
-                onBackPressed()
+               finish()
         })
     }
 
@@ -72,17 +88,18 @@ class GameActivity: BaseActivityMVVM<GamePresenter>() {
     }
 
     private fun startTimer(){
-        Handler().postDelayed({updateTimer()}, 1000)
+        timeHandler.postDelayed({updateTimer()}, 1000)
     }
 
     private fun updateTimer(){
-        var time = tvTimer.text.toString().toInt()
-        if(time-- >0){
+        time--
+        if(time > 0){
             tvTimer.text = time.toString()
             startTimer()
         }
         else
-            endGame()
+            if(!isGameEnd)
+                endGame()
     }
 
     fun addPointAndScroll(){
@@ -95,7 +112,25 @@ class GameActivity: BaseActivityMVVM<GamePresenter>() {
             endGame()
     }
 
+    private fun gameFinishedAnimation(){
+        constrainLayoutGame.foreground = ColorDrawable(getColor(R.color.red))
+        val animator = ObjectAnimator.ofInt(this.constrainLayoutGame.foreground,"alpha",0,255).apply {
+            duration = 500
+        }
+        animator.start()
+        Handler().postDelayed({startScoreDisplayActivity()},500)
+    }
+
     private fun endGame(){
-        Toasty.info(ctx, "Not Implemented yet!").show()
+        isGameEnd = true
+        timeHandler.removeCallbacks(null)
+        Session.score += time
+        this.hideKeyboard()
+        gameFinishedAnimation()
+    }
+
+    private fun startScoreDisplayActivity(){
+        val intent = Intent(this, ScoreActivity::class.java)
+        startActivity(intent)
     }
 }
