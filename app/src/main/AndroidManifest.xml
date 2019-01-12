@@ -34,6 +34,10 @@
                 android:name=".views.activity.ScoreActivity"
                 android:theme="@style/LandingTheme"
                 android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+                android:name=".views.activity.TopScoresActivity"
+                android:theme="@style/LandingTheme"
+                android:windowSoftInputMode="stateHidden|adjustPan" />
 
     </application>
 

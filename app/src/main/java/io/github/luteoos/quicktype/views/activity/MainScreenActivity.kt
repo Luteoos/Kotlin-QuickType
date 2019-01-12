@@ -72,10 +72,21 @@ class MainScreenActivity: BaseActivityMVVM<MainScreenPresenter>() {
             else
                 Toasty.error(ctx, R.string.api_error).show()
         }
+        btnScore.onClick {
+            if(isNetworkOnLine)
+                startTopScoresActivity()
+            else
+                Toasty.error(ctx, R.string.api_error).show()
+        }
     }
 
     private fun startGameActivity(){
         val intent = Intent(this, GameActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun startTopScoresActivity(){
+        val intent = Intent(this, TopScoresActivity::class.java)
         startActivity(intent)
     }
 }
