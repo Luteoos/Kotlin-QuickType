@@ -17,12 +17,9 @@ class MainScreenActivity: BaseActivityMVVM<MainScreenPresenter>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = MainScreenPresenter()
+        viewModel = getViewModel(this)
         this.connectToVMMessage()
         setBindings()
-    }
-
-    override fun onVMMessage(msg: String?) {
     }
 
     private fun createDialogAbout(){
@@ -61,7 +58,8 @@ class MainScreenActivity: BaseActivityMVVM<MainScreenPresenter>() {
             onBackPressed()
         }
         btnAbout.onClick {
-            createDialogAbout()
+//            createDialogAbout()
+            startAboutActivity()
         }
         btnHelp.onClick {
             createDialogHelp()
@@ -78,6 +76,11 @@ class MainScreenActivity: BaseActivityMVVM<MainScreenPresenter>() {
             else
                 Toasty.error(ctx, R.string.api_error).show()
         }
+    }
+
+    private fun startAboutActivity(){
+        val intent = Intent(this, AboutActivity::class.java)
+        startActivity(intent)
     }
 
     private fun startGameActivity(){

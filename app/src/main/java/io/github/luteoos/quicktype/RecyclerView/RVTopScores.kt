@@ -15,7 +15,13 @@ class RVTopScores(val list: MutableList<scoreApiResponse>,
                   val context: Context) : RecyclerView.Adapter<RVTopScoresViewHolder>() {
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): RVTopScoresViewHolder {
-        return RVTopScoresViewHolder(LayoutInflater.from(context).inflate(R.layout.recycler_view_top_scores_holder, p0, false))
+        return RVTopScoresViewHolder(
+            LayoutInflater.from(context).inflate(
+                R.layout.recycler_view_top_scores_holder,
+                p0,
+                false
+            )
+        )
     }
 
     override fun getItemCount(): Int = list.size
@@ -23,11 +29,6 @@ class RVTopScores(val list: MutableList<scoreApiResponse>,
     override fun onBindViewHolder(holder: RVTopScoresViewHolder, position: Int) {
         holder.score.text = list[position].score.toString()
         holder.username.text = list[position].nickname
-        when(position){
-            0 -> holder.cardview.backgroundColor = context.getColor(R.color.gold)
-            1 -> holder.cardview.backgroundColor = context.getColor(R.color.silver)
-            else -> holder.cardview.backgroundColor = context.getColor(R.color.colorAfter)
-        }
     }
 }
 

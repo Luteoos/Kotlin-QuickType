@@ -18,7 +18,7 @@ class ScoreActivity : BaseActivityMVVM<ScorePresenter>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ScorePresenter()
+        viewModel = getViewModel(this)
         connectToVMMessage()
         tvScore.text = Session.score.toString()
         setBindings()
@@ -30,7 +30,8 @@ class ScoreActivity : BaseActivityMVVM<ScorePresenter>() {
         startMainScreenActivity()
     }
 
-    override fun onVMMessage(msg: String?) {
+    override fun onVMMessage(msg: Int?) {
+        super.onVMMessage(msg)
         when(msg){
             viewModel.UPLOAD_SUCCESS -> {
                 etUsername.visibility = View.INVISIBLE
@@ -42,7 +43,7 @@ class ScoreActivity : BaseActivityMVVM<ScorePresenter>() {
     }
 
     private fun setBindings(){
-        btnHome.onClick {
+        btnHome2.onClick {
             startMainScreenActivity()
         }
         btnPostScore.onClick {

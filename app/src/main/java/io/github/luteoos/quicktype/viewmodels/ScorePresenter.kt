@@ -5,23 +5,28 @@ import io.github.luteoos.quicktype.network.RestApi
 import io.github.luteoos.quicktype.network.api.ApiAll
 import io.github.luteoos.quicktype.network.api.request.scoreUploadRequest
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 
 class ScorePresenter : BaseViewModel() {
 
-    val UPLOAD_SUCCESS = "UPLOAD_SUCCESS"
-    val UPLOAD_FAILED = "UPLOAD_FAILED"
+    val UPLOAD_SUCCESS = -1
+    val UPLOAD_FAILED =  14
 
     fun postScore(nickname: String, score: Int){
+        //TODO API isnt working so whatev
         val client = RestApi.createService(ApiAll::class.java)
-        disposable.add(client.uploadScore(scoreUploadRequest(nickname,score))
+        CompositeDisposable().add(client.uploadScore(scoreUploadRequest(nickname,score))
             .subscribeOn(Schedulers.io())
+            .timeout(1500, TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 if(it.code()==200)
-                    message.value = UPLOAD_SUCCESS
+                  send( UPLOAD_SUCCESS)
             },{
-                message.value = UPLOAD_FAILED
+                send(UPLOAD_FAILED)
             }))
     }
 }

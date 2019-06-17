@@ -10,13 +10,19 @@
 
     <style name="LandingTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:colorBackground">@color/colorPrimary</item>
-        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:textColorHint">@color/colorHintTextSettings</item>
-        <item name="android:editTextColor">@color/colorPrimaryDark</item>
+        <item name="android:editTextColor">@color/colorAccent</item>
         <item name="android:textColorHighlight">@color/colorAccent</item>
         <item name="colorControlNormal">@color/colorAccent</item>
-        <item name="colorControlActivated">@color/colorAccent</item>
-        <item name="colorControlHighlight">@color/colorAccent</item>
+        <item name="colorControlActivated">@color/colorPrimaryLight</item>
+        <item name="colorControlHighlight">@color/colorPrimaryLight</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+    </style>
+
+    <style name="ButtonElevated" parent="Base.Widget.AppCompat.Button">
+        <item name="android:elevation">4sp</item>
     </style>
 
     <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">

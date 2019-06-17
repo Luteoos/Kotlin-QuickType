@@ -2,8 +2,6 @@ package io.github.luteoos.quicktype
 
 import android.app.Application
 import android.os.StrictMode
-import io.realm.Realm
-import io.realm.RealmConfiguration
 import timber.log.Timber
 
 class QTypeStartup : Application() {
@@ -13,12 +11,6 @@ class QTypeStartup : Application() {
         Timber.e(this.toString())
         if(BuildConfig.DEBUG)
             initDebugStuff()
-        Realm.init(this)
-        val realmConfiguration = RealmConfiguration
-            .Builder()
-            .deleteRealmIfMigrationNeeded()
-            .build()
-        Realm.setDefaultConfiguration(realmConfiguration)
     }
 
     private fun initDebugStuff() {

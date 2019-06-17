@@ -1,9 +1,9 @@
 <resources>
     <string name="name_app" >QuickType</string>
-    <string name="text_about">Mr Stark i got Bamboozled again…\nPolecam i Pozdrawiam,\nMateusz Lutecki</string>
+    <string name="text_about">Mateusz Lutecki \nWydział Matematyki Stosowanej\nPolitechnika Śląska\nGliwice2019</string>
     <string name="text_help">Type words quickly to not die as fast!\nJoking, you  die in 60 seconds, just earn higher score</string>
     <string name="user_score">Score:</string>
-    <string name="user_nickname">Enter your nickname to get yourself into Hall of Fame!</string>
+    <string name="user_nickname">Enter your nickname to get yourself into \n Hall of Fame</string>
     <string name="title_about">About</string>
     <string name="title_help">Mayday Mayday!</string>
     <string name="ok">OK</string>

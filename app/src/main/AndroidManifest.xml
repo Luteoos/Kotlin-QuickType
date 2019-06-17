@@ -12,7 +12,8 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme" tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".views.SplashScreen">
+        <activity android:name=".views.SplashScreen"
+        android:theme="@style/LandingTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -38,6 +39,9 @@
                 android:name=".views.activity.TopScoresActivity"
                 android:theme="@style/LandingTheme"
                 android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity android:name=".views.activity.AboutActivity"
+                  android:theme="@style/LandingTheme"
+                  android:windowSoftInputMode="stateHidden"/>
 
     </application>
 

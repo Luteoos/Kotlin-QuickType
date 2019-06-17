@@ -11,23 +11,27 @@ import io.reactivex.schedulers.Schedulers
 
 class TopScoresPresenter : BaseViewModel() {
 
-    val GET_FAILED = "GET_FAILED"
+    val GET_FAILED = 11
 
     val scoresList : MutableLiveData<MutableList<scoreApiResponse>> = MutableLiveData()
 
     fun getTopScores(){
-        val client = RestApi.createService(ApiAll::class.java)
-        disposable.add(client.getTop10()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                if(it.code()==200){
-                    if(it.body() != null)
-                        scoresList.value = it.body()
-                }else
-                    message.value = GET_FAILED
-            },{
-                message.value = GET_FAILED
-            }))
+        scoresList.value = mutableListOf(scoreApiResponse("Mock Uno", 120),scoreApiResponse("Mock Dos", 110),
+            scoreApiResponse("Mock Tres", 90), scoreApiResponse("ARRIVA", 60))
+
+//        TODO  MOCKED
+//        val client = RestApi.createService(ApiAll::class.java)
+//        disposable.add(client.getTop10()
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe({
+//                if(it.code()==200){
+//                    if(it.body() != null)
+//                        scoresList.value = it.body()
+//                }else
+//                    message.value = GET_FAILED
+//            },{
+//                message.value = GET_FAILED
+//            }))
     }
 }

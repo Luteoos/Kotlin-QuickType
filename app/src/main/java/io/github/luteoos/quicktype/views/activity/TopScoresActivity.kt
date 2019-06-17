@@ -12,6 +12,7 @@ import io.github.luteoos.quicktype.network.api.response.scoreApiResponse
 import io.github.luteoos.quicktype.viewmodels.TopScoresPresenter
 import kotlinx.android.synthetic.main.activity_top_scores.*
 import org.jetbrains.anko.ctx
+import org.jetbrains.anko.sdk27.coroutines.onClick
 
 class TopScoresActivity : BaseActivityMVVM<TopScoresPresenter>() {
 
@@ -19,12 +20,12 @@ class TopScoresActivity : BaseActivityMVVM<TopScoresPresenter>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = TopScoresPresenter()
+        viewModel = getViewModel(this)
         setBindings()
         viewModel.getTopScores()
     }
 
-    override fun onVMMessage(msg: String?) {
+    override fun onVMMessage(msg: Int?) {
         when(msg){
             viewModel.GET_FAILED -> Toasty.error(ctx, R.string.api_error)
         }
@@ -34,6 +35,9 @@ class TopScoresActivity : BaseActivityMVVM<TopScoresPresenter>() {
         viewModel.scoresList.observe(this, Observer {
             if(it != null)
                 setTopList(it)})
+        btnHome2.onClick {
+            onBackPressed()
+        }
     }
 
     private fun setTopList(list: MutableList<scoreApiResponse>){

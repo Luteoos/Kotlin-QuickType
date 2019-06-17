@@ -32,7 +32,7 @@ class GameActivity: BaseActivityMVVM<GamePresenter>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = GamePresenter()
+        viewModel = getViewModel(this)
         this.connectToVMMessage()
         setBindings()
         viewModel.getWordsFromApi()
@@ -47,10 +47,10 @@ class GameActivity: BaseActivityMVVM<GamePresenter>() {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
+        //super.onBackPressed()
         finish()
     }
-    override fun onVMMessage(msg: String?) {
+    override fun onVMMessage(msg: Int?) {
         when(msg){
             viewModel.GET_WORDS_FAILED -> {
                 Toasty.error(ctx,R.string.api_error).show()
@@ -113,7 +113,7 @@ class GameActivity: BaseActivityMVVM<GamePresenter>() {
     }
 
     private fun gameFinishedAnimation(){
-        constrainLayoutGame.foreground = ColorDrawable(getColor(R.color.red))
+        constrainLayoutGame.foreground = ColorDrawable(getColor(R.color.colorAccent))
         val animator = ObjectAnimator.ofInt(this.constrainLayoutGame.foreground,"alpha",0,255).apply {
             duration = 500
         }

@@ -9,21 +9,23 @@ import io.reactivex.schedulers.Schedulers
 import java.util.*
 
 class GamePresenter: BaseViewModel() {
-    val GET_WORDS_FAILED = "GET_WORDS_FAILED"
+    val GET_WORDS_FAILED = 15
 
     val wordsArray: MutableLiveData<Array<String>> = MutableLiveData()
 
     fun getWordsFromApi(){
-        val client = RestApi.createService(ApiAll::class.java)
-        disposable.add(client.getWordsArray()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                if(it.code()==200){
-                    wordsArray.value = it.body()
-                }
-            },{
-                message.value = GET_WORDS_FAILED
-            }))
+        wordsArray.value = arrayOf("mockknock")
+//        TODO MOCKED
+//        val client = RestApi.createService(ApiAll::class.java)
+//        disposable.add(client.getWordsArray()
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe({
+//                if(it.code()==200){
+//                    wordsArray.value = it.body()
+//                }
+//            },{
+//                message.value = GET_WORDS_FAILED
+//            }))
     }
 }
